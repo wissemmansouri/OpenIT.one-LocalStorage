@@ -1,0 +1,14 @@
+[Unit]
+After=openit-gateway.service
+After=openit-message-bus.service
+Description=OpenIT.one Local Storage Service
+
+[Service]
+ExecStartPre=/usr/bin/openit-local-storage -v
+ExecStart=/usr/bin/openit-local-storage -c /etc/openit/local-storage.conf
+PIDFile=/var/run/openit/local-storage.pid
+Restart=always
+Type=notify
+
+[Install]
+WantedBy=multi-user.target
