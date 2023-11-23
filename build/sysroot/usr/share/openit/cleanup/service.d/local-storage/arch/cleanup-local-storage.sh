@@ -44,8 +44,8 @@ onCtrlC() {
     exit 1
 }
 
-if [[ ! -x "$(command -v ${CASA_EXEC})" ]]; then
-    Show 2 "${CASA_EXEC} is not detected, exit the script."
+if [[ ! -x "$(command -v ${OPEN_EXEC})" ]]; then
+    Show 2 "${OPEN_EXEC} is not detected, exit the script."
     exit 1
 fi
 
@@ -67,14 +67,14 @@ while true; do
     esac
 done
 
-for SERVICE in "${CASA_SERVICES[@]}"; do
+for SERVICE in "${OPEN_SERVICES[@]}"; do
     Show 2 "Stopping ${SERVICE}..."
     systemctl disable --now "${SERVICE}" || Show 3 "Failed to disable ${SERVICE}"
 done
 
-rm -rvf "$(which ${CASA_EXEC})" || Show 3 "Failed to remove ${CASA_EXEC}"
-rm -rvf "${CASA_CONF}" || Show 3 "Failed to remove ${CASA_CONF}"
+rm -rvf "$(which ${OPEN_EXEC})" || Show 3 "Failed to remove ${OPEN_EXEC}"
+rm -rvf "${OPEN_CONF}" || Show 3 "Failed to remove ${OPEN_CONF}"
 
 if [[ ${REMOVE_LOCAL_STORAGE_DATABASE} == true ]]; then
-    rm -rvf "${CASA_DB}" || Show 3 "Failed to remove ${CASA_DB}"
+    rm -rvf "${OPEN_DB}" || Show 3 "Failed to remove ${OPEN_DB}"
 fi
